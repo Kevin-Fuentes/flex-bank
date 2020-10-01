@@ -47,7 +47,7 @@ import Header from './layout/header'
                const search = usuarioTransaciones.filter(dato => {
                const fecha = dato.fecha.toString().includes(state.busqueda)   
                const monto = dato.monto.toString().includes(state.busqueda)
-               const descripcion = dato.descripcion.toLocaleLowerCase().toString().includes(state.busqueda) 
+               const descripcion = dato.descripcion.toLowerCase().toString().includes(state.busqueda) 
 
      //CREAMOS SENTENCIAS PARA REALIZAR LAS BUSQUEDAS
                if (fecha && valorFiltro.filtro === "fecha") {
@@ -109,7 +109,7 @@ import Header from './layout/header'
                     name="filtro" id="filtro"
                     defaultValue={"todo"}
                >
-               <option value="todo" disabled >Todo</option> 
+               <option value="todos" disabled >Todos</option> 
                <option value="monto">Monto</option> 
                <option value="fecha" >Fecha</option>
                <option value="descripcion">Descripcion</option>
