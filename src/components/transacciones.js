@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Datatable from 'react-data-table-component'
 //EXPORTAMOS ESTOS DATOS NECESARIOS PARA LA CREACION DE NUESTRA TABLA
 import { columnas, opcionesPagina } from '../config/configuracionTabla'
-import { usuarioTransaciones } from '../db/datos'
+import { usuarioTransacciones } from '../db/datos'
 //IMPORTAMOS NUESTRO HEADER 
 import Header from './layout/header'
 
@@ -31,7 +31,7 @@ import Header from './layout/header'
           
      //ENCASO  QUE NUESTRO INPUT ESTE VACIO NOS DEVOLVERA EL ARRAY COMPLETO
                if (e.target.value === "") {
-                    setdatos({usuarios:usuarioTransaciones})
+                    setdatos({usuarios:usuarioTransacciones})
                }
                     
      }
@@ -44,7 +44,7 @@ import Header from './layout/header'
                const fitralElementos = () => {
           
           //LLAMAMOS LA FUNCION FILTER 
-               const search = usuarioTransaciones.filter(dato => {
+               const search = usuarioTransacciones.filter(dato => {
                const fecha = dato.fecha.toString().includes(state.busqueda)   
                const monto = dato.monto.toString().includes(state.busqueda)
                const descripcion = dato.descripcion.toLowerCase().includes(state.busqueda.toLocaleLowerCase()) 
@@ -81,7 +81,7 @@ import Header from './layout/header'
 
       //CARGAMOS LOS DATOS DE USUARIO AL RENDERIZAR NUESTRO COMPONENTE
           useEffect(() => {
-               setdatos({ usuarios: usuarioTransaciones})
+               setdatos({ usuarios: usuarioTransacciones})
           
           }, [])
      
@@ -149,7 +149,7 @@ import Header from './layout/header'
                     <Datatable
                     columns={columnas}
                     data={datos.usuarios}
-                    title='Transaciones'
+                    title='Transacciones'
                     pagination
                     fixedHeader
                     paginationComponentOptions={opcionesPagina}

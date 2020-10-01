@@ -1,5 +1,5 @@
 //ESTO SERAN NUESTROS, DATOS 
-export const usuarioTransaciones = [
+export const usuarioTransacciones = [
 	{ id: 1, usuario: 'KevinF', monto: '$100.000', fecha: '12/09/2020', descripcion: 'MercadoLibre' },
 	{ id: 2, usuario: 'KevinF', monto: '$10.000', fecha: '23/09/2020', descripcion: 'Amazon' },
 	{ id: 3, usuario: 'KevinF', monto: '$80.000', fecha: '4/09/2020', descripcion: 'Rappi' },

@@ -1,11 +1,11 @@
 import React from 'react';
-import Transaciones from './components/transaciones';
+import Transacciones from './components/transacciones';
 
 
 function App() {
   return (
     < >
-    <Transaciones/>
+    <Transacciones/>
     </>
   );
 }
