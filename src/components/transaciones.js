@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 //IMPORTAMOS ESTAS LIBRERIAS PARA AÑADIR NUESTRO ICONO
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faSpa } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //IMPORTAMOS ESTAS LIBRERIAS PARA CREAR NUESTRA TABLA
 import Datatable from 'react-data-table-component'
@@ -47,8 +47,8 @@ import Header from './layout/header'
                const search = usuarioTransaciones.filter(dato => {
                const fecha = dato.fecha.toString().includes(state.busqueda)   
                const monto = dato.monto.toString().includes(state.busqueda)
-               const descripcion = dato.descripcion.toLowerCase().toString().includes(state.busqueda) 
-
+               const descripcion = dato.descripcion.toLowerCase().includes(state.busqueda.toLocaleLowerCase()) 
+                  
      //CREAMOS SENTENCIAS PARA REALIZAR LAS BUSQUEDAS
                if (fecha && valorFiltro.filtro === "fecha") {
                     return dato
@@ -153,7 +153,7 @@ import Header from './layout/header'
                     pagination
                     fixedHeader
                     paginationComponentOptions={opcionesPagina}
-                    
+                    noDataComponent={<h1>No se Encontro ningun elemento </h1>   }
                     ></Datatable>
                                </>);
 }
