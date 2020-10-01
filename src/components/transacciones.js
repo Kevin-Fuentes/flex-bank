@@ -137,6 +137,7 @@ import Header from './layout/header'
                     alignItems: "center",
                     justifyContent: "center",
                }}
+                    onClick={fitralElementos}
                     type="button"
                >
 
