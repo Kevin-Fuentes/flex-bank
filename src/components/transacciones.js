@@ -15,7 +15,7 @@ import Header from './layout/header'
           //CREAMOS NUESTRO COMPONENTE 
           const Transaciones = () => {
                
-          //CREAMOS NUESTROS DOS ESTADOS TANTO PARA LA BUSQUEDA COMO PARA NUESTROS DATOS
+          //CREAMOS NUESTROS DOS ESTADOS TANTO PARA LA BUSQUEDA COMO PARA NUESTROS DATOS FILTRADOS
                const [state, setState] = useState({ busqueda: "" })
                const [datos, setdatos] = useState({usuarios:[]})
                const [valorFiltro, setFiltro] = useState({ filtro: "" })
