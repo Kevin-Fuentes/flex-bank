@@ -107,7 +107,7 @@ import Header from './layout/header'
                      
                     onChange={seleccionarFiltro}
                     name="filtro" id="filtro"
-                    defaultValue={"todo"}
+                    defaultValue={"todos"}
                >
                <option value="todos" disabled >Todos</option> 
                <option value="monto">Monto</option> 
