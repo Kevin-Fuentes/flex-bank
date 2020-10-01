@@ -12,113 +12,150 @@ import Header from './layout/header'
 
 
 
-//CREAMOS NUESTRO COMPONENTE 
-const Transaciones = () => {
-     
-//CREAMOS NUESTROS DOS ESTADOS TANTO PARA LA BUSQUEDA COMO PARA NUESTROS DATOS
-     const [state, setState] = useState({ busqueda: "" })
-     const [datos, setdatos] = useState({usuarios:[]})
-     
-     //CREAMOS NUESTROS FUNCION QUE NOS PERMITIRA REALIZAR NUESTRA BUSQUEDA
-     const buscar = (e) => {
-         
-          //CAMBIAMOS NUESTRO ESTADO DE BUSQUEDA , CON LO QUE SE DIGITE EN NUESTRO INPUT
-         setState({ busqueda: e.target.value })
-         //LLAMAMOS NUESTRA FUNCUON PARA FILTRAR LA BUSQUEDA
-          fitralElementos()
- //ENCASO  QUE NUESTRO INPUT ESTE VACIO NOS DEVOLVERA EL ARRAY COMPLETO
-          if (e.target.value === "") {
-               setdatos({usuarios:usuarioTransaciones})
-          }
+          //CREAMOS NUESTRO COMPONENTE 
+          const Transaciones = () => {
                
-
-
-
-
+          //CREAMOS NUESTROS DOS ESTADOS TANTO PARA LA BUSQUEDA COMO PARA NUESTROS DATOS
+               const [state, setState] = useState({ busqueda: "" })
+               const [datos, setdatos] = useState({usuarios:[]})
+               const [valorFiltro, setFiltro] = useState({ filtro: "" })
+    
+          //CREAMOS NUESTROS FUNCION QUE NOS PERMITIRA REALIZAR NUESTRA BUSQUEDA
+          const buscar = (e) => {
+          
+               //CAMBIAMOS NUESTRO ESTADO DE BUSQUEDA , CON LO QUE SE DIGITE EN NUESTRO INPUT
+               setState({ busqueda: e.target.value })
+               
+          //LLAMAMOS NUESTRA FUNCUON PARA FILTRAR LA BUSQUEDA
+               fitralElementos()
+          
+     //ENCASO  QUE NUESTRO INPUT ESTE VACIO NOS DEVOLVERA EL ARRAY COMPLETO
+               if (e.target.value === "") {
+                    setdatos({usuarios:usuarioTransaciones})
+               }
+                    
      }
-     //FUNCION PARA FILTRAR NUESTROS ELEMENTOS
-     const fitralElementos = () => {
+//FUNCION PARA SELECIONAR NUESTRO FILTRO
+     const seleccionarFiltro = (e) => {
+          setFiltro({filtro:e.target.value}) 
+     }
+
+           //FUNCION PARA FILTRAR NUESTROS ELEMENTOS
+               const fitralElementos = () => {
+          
           //LLAMAMOS LA FUNCION FILTER 
-          const search = usuarioTransaciones.filter(dato => {
-     
-   //CREAMOS SENTENCIAS PARA REALIZAR LAS BUSQUEDAS
-               if (dato.fecha.toString().includes(state.busqueda)) {
+               const search = usuarioTransaciones.filter(dato => {
+               const fecha = dato.fecha.toString().includes(state.busqueda)   
+               const monto = dato.monto.toString().includes(state.busqueda)
+               const descripcion = dato.descripcion.toLocaleLowerCase().toString().includes(state.busqueda) 
+
+     //CREAMOS SENTENCIAS PARA REALIZAR LAS BUSQUEDAS
+               if (fecha && valorFiltro.filtro === "fecha") {
                     return dato
                }
-               else if (dato.monto.toString().includes(state.busqueda)) {
+               else if (monto && valorFiltro.filtro === "monto"
+               ) {
+                    
                     return dato
                }
                    
-               else if (dato.usuario.toLocaleLowerCase().toString().includes(state.busqueda)) {
+               else if (descripcion && valorFiltro.filtro === "descripcion") {
                     return dato
                }
-               else if (dato.descripcion.toLocaleLowerCase().toString().includes(state.busqueda)) {
-                    return dato
-               }
-                   
+                 
             
            
 
-          })
+               })
+                    
          //PASAMOS EL RESULTADO A NUESTRO ESTADO
           setdatos({ usuarios: search })
           
      }
     
 
-//CARGAMOS LOS DATOS DE USUARIO AL RENDERIZAR NUESTRO COMPONENTE
- useEffect(() => {
-     setdatos({ usuarios: usuarioTransaciones})
+          //USEFFECT PARA QUE NUESTROS FILTROS NO TENGAN RETRASO
+          useEffect(() => {
+               fitralElementos()
+          }, [state.busqueda])
+
+      //CARGAMOS LOS DATOS DE USUARIO AL RENDERIZAR NUESTRO COMPONENTE
+          useEffect(() => {
+               setdatos({ usuarios: usuarioTransaciones})
+          
+          }, [])
+     
    
-}, [])
-     
-     
-  
      
 
      return (<>
          
           <Header/>  
-          <div  style={{float: "right",
-             padding: "20px"}}>  
-          
-            <input type="text"
-              placeholder="Buscar"
-              name="busqueda"
-             value={state.busqueda || ""}
-               onChange={buscar}
+          <div style={{
+               float: "right",
+               padding: "20px"
+          }}>  
+               
+
+               <select
                     style={{
                          height: "32px",
                          width: "200px",
                          border: "1px solid #e5e5e5",
                          padding: "0 32px 0 16px"
-               }}
+                                              }}
+                     
+                    onChange={seleccionarFiltro}
+                    name="filtro" id="filtro"
+                    defaultValue={"todo"}
+               >
+               <option value="todo" disabled >Todo</option> 
+               <option value="monto">Monto</option> 
+               <option value="fecha" >Fecha</option>
+               <option value="descripcion">Descripcion</option>
+                    
+               </select>
+
+            <input type="text"
+                    placeholder="Buscar"
+                    name="busqueda"
+                    value={state.busqueda || ""}
+                    onChange={buscar}
+                    style={{
+                         height: "32px",
+                         width: "200px",
+                         border: "1px solid #e5e5e5",
+                         padding: "0 32px 0 16px"
+                                    }}
                />
               
            
                <button style={{
+                    height: "34px",
+                    width: "32px",
+                    textAlign: "center",
+                    alignItems: "center",
+                    justifyContent: "center",
+               }}
+                    type="button"
+               >
+
+                    <FontAwesomeIcon
+                         icon={faSearch}/>
+               </button> 
                
-               height: "34px",
-               width: "32px",
-               textAlign: "center",
-               alignItems: "center",
-               justifyContent: "center",
-          }} type="button" >
-          <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-          </button> 
           </div>   
           
-         
-          <Datatable
-           columns={columnas}
-           data={datos.usuarios}
-           title='Transaciones'
-           pagination
-           fixedHeader
-           paginationComponentOptions={opcionesPagina}
-          
-          ></Datatable>
-     </>);
+                    <Datatable
+                    columns={columnas}
+                    data={datos.usuarios}
+                    title='Transaciones'
+                    pagination
+                    fixedHeader
+                    paginationComponentOptions={opcionesPagina}
+                    
+                    ></Datatable>
+                               </>);
 }
  
 export default Transaciones;
